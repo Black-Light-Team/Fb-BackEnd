@@ -45,9 +45,13 @@ public class PosteController {
     public ResponseEntity<PosteDto> createPoste( @RequestBody PosteDto posteDto) {
 
         // Retrieve userId from the session
-        String userId = (String) httpSession.getAttribute("authenticatedUser");
+      //  String userId = (String) httpSession.getAttribute("authenticatedUser");
+      //  System.out.println("    la session est "+userId);
 
+        String userId = "651c871a8c1da97cad48d4df";
         UserDto existingUserDto = userService.getUserById(userId);
+        System.out.println("ma data is "+existingUserDto);
+
         if (existingUserDto != null) {
             Poste poste = new Poste();
             poste.setId(posteDto.getId());
@@ -60,6 +64,9 @@ public class PosteController {
 
             // Convertir la liste de CommentaireDto en une liste de Commentaire
             List<CommentaireDto> commentaireDtoList = posteDto.getCommentaireList();
+            if(commentaireDtoList==null){
+                commentaireDtoList=new ArrayList<>();
+            }
             List<Commentaire> commentaireList = new ArrayList<>();
             for (CommentaireDto commentaireDto : commentaireDtoList) {
                 Commentaire commentaire = new Commentaire();
