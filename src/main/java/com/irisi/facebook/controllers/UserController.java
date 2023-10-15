@@ -64,9 +64,9 @@ public class UserController {
             // L'authentification réussit, vous pouvez retourner une réponse appropriée
 
             // Store authenticated userId information in the session
-            httpSession.setAttribute("authenticatedUser", authenticationSuccessful_UserId);
+//            httpSession.setAttribute("authenticatedUser", authenticationSuccessful_UserId);
 
-            return new ResponseEntity<>("Authentication successful", HttpStatus.OK);
+            return new ResponseEntity<>(authenticationSuccessful_UserId, HttpStatus.OK);
         } else {
             // L'authentification échoue, retournez une réponse avec un statut 401 Unauthorized
             return new ResponseEntity<>("Authentication failed", HttpStatus.NOT_FOUND);

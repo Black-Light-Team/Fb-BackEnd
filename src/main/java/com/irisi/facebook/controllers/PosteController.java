@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:3000") // Replace with your frontend URL
 @RestController
 @RequestMapping("/postes")
@@ -32,8 +33,9 @@ public class PosteController {
 
     @Autowired
     public CommentaireService commentaireService;
+
     @Autowired
-    public HttpSession httpSession;
+    private HttpSession httpSession;
 
     @GetMapping("/{postId}")
     public ResponseEntity<PosteDto> getPoste(@PathVariable("postId") String id) {
@@ -45,10 +47,10 @@ public class PosteController {
     public ResponseEntity<PosteDto> createPoste( @RequestBody PosteDto posteDto) {
 
         // Retrieve userId from the session
-      //  String userId = (String) httpSession.getAttribute("authenticatedUser");
-      //  System.out.println("    la session est "+userId);
 
-        String userId = "651c871a8c1da97cad48d4df";
+//        String userId = (String) httpSession.getAttribute("authenticatedUser");
+       // String userId = posteDto.getUserId();
+        String userId ="651c871a8c1da97cad48d4df";
         UserDto existingUserDto = userService.getUserById(userId);
         System.out.println("ma data is "+existingUserDto);
 
@@ -64,8 +66,10 @@ public class PosteController {
 
             // Convertir la liste de CommentaireDto en une liste de Commentaire
             List<CommentaireDto> commentaireDtoList = posteDto.getCommentaireList();
-            if(commentaireDtoList==null){
-                commentaireDtoList=new ArrayList<>();
+
+
+            if (commentaireDtoList == null) {
+                commentaireDtoList = new ArrayList<>();
             }
             List<Commentaire> commentaireList = new ArrayList<>();
             for (CommentaireDto commentaireDto : commentaireDtoList) {
@@ -80,6 +84,7 @@ public class PosteController {
 
             // Enregistrer le Poste
             PosteDto createdPosteDto = posteService.savePoste(poste);
+
 
             // Récupérer la liste des postes de l'utilisateur
             List<PosteDto> postes = existingUserDto.getPosts();

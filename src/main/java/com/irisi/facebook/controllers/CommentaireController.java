@@ -38,11 +38,11 @@ public class CommentaireController {
     public ResponseEntity<CommentaireDto> createCommentaire(@RequestBody CommentaireDto commentaireDto) {
 //        String userId = "6527167a6427fb60de5c7e3b";
         // Retrieve userId from the session
-        String userId = (String) httpSession.getAttribute("authenticatedUser");
+//        String userId = (String) httpSession.getAttribute("authenticatedUser");
 
 
         // Récupérer l'utilisateur existant
-        UserDto existingUserDto = userService.getUserById(userId);
+        UserDto existingUserDto = userService.getUserById(commentaireDto.getUserId());
 
         // Récupérer le poste existant
         PosteDto existingPosteDto = posteService.getPostById(commentaireDto.getPosteId());
@@ -52,7 +52,7 @@ System.out.println(" mon poste "+existingPosteDto.getContenu());
             commentaire.setId(commentaireDto.getId());
             commentaire.setContenu(commentaireDto.getContenu());
             commentaire.setDatePublication(commentaireDto.getDatePublication());
-            commentaire.setUserId(userId);
+            commentaire.setUserId(commentaireDto.getUserId());
             commentaire.setPosteId(commentaireDto.getPosteId());
 
             // Enregistrer le commentaire
@@ -69,7 +69,7 @@ System.out.println(" mon poste "+existingPosteDto.getContenu());
             existingUserDto.setComments(comments);
 
             // Mettre à jour l'utilisateur avec la nouvelle liste de commentaires
-            userService.updateUser(userId, existingUserDto);
+            userService.updateUser(commentaireDto.getUserId(), existingUserDto);
             // Récupérer la liste des commentaires du poste
             List<CommentaireDto> commentsOfPoste = existingPosteDto.getCommentaireList();
             if (commentsOfPoste == null) {
