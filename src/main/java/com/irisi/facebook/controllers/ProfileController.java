@@ -35,8 +35,8 @@ public class ProfileController {
     @PostMapping
     public ResponseEntity<ProfileDto> createProfile(@RequestBody ProfileDto profileDto){
         // Retrieve userId from the session
-        String userId = (String) httpSession.getAttribute("authenticatedUser");
-
+//        String userId = (String) httpSession.getAttribute("authenticatedUser");
+            String userId =profileDto.getUserId();
         UserDto existingUserDto = userService.getUserById(userId);
         if (existingUserDto != null) {
             Profile profile = new Profile();

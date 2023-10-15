@@ -46,8 +46,8 @@ public class PosteController {
     public ResponseEntity<PosteDto> createPoste( @RequestBody PosteDto posteDto) {
 
         // Retrieve userId from the session
-        String userId = (String) httpSession.getAttribute("authenticatedUser");
-
+//        String userId = (String) httpSession.getAttribute("authenticatedUser");
+        String userId = posteDto.getUserId();
         UserDto existingUserDto = userService.getUserById(userId);
         if (existingUserDto != null) {
             Poste poste = new Poste();
