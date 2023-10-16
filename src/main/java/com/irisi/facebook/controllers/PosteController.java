@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:3000") // Replace with your frontend URL
 @RestController
 @RequestMapping("/postes")
@@ -54,9 +55,13 @@ public class PosteController {
     public ResponseEntity<PosteDto> createPoste( @RequestBody PosteDto posteDto) {
 
         // Retrieve userId from the session
+
 //        String userId = (String) httpSession.getAttribute("authenticatedUser");
-        String userId = posteDto.getUserId();
+       // String userId = posteDto.getUserId();
+        String userId ="651c871a8c1da97cad48d4df";
         UserDto existingUserDto = userService.getUserById(userId);
+        System.out.println("ma data is "+existingUserDto);
+
         if (existingUserDto != null) {
             Poste poste = new Poste();
             poste.setId(posteDto.getId());
@@ -69,6 +74,7 @@ public class PosteController {
 
             // Convertir la liste de CommentaireDto en une liste de Commentaire
             List<CommentaireDto> commentaireDtoList = posteDto.getCommentaireList();
+
 
             if (commentaireDtoList == null) {
                 commentaireDtoList = new ArrayList<>();

@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @CrossOrigin(origins = "http://localhost:3000") // Replace with your frontend URL
+
 @RestController
 @RequestMapping("/utilisateurs")
 public class UserController {
@@ -75,4 +77,3 @@ public class UserController {
 
 
 }
-
