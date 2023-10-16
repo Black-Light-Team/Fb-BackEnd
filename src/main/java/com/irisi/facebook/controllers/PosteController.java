@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:3000") // Replace with your frontend URL
 @RestController
 @RequestMapping("/postes")
@@ -42,13 +43,25 @@ public class PosteController {
         return new ResponseEntity<>(posteDto, HttpStatus.OK);
     }
 
+    // Get the postes of userId
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<PosteDto>> getPostesByUserId(@PathVariable("userId") String userId) {
+        List<PosteDto> postes = posteService.getPosteByUserId(userId);
+        return new ResponseEntity<>(postes, HttpStatus.OK);
+    }
+
+
     @PostMapping
     public ResponseEntity<PosteDto> createPoste( @RequestBody PosteDto posteDto) {
 
         // Retrieve userId from the session
-        String userId = (String) httpSession.getAttribute("authenticatedUser");
 
+//        String userId = (String) httpSession.getAttribute("authenticatedUser");
+       // String userId = posteDto.getUserId();
+        String userId ="651c871a8c1da97cad48d4df";
         UserDto existingUserDto = userService.getUserById(userId);
+        System.out.println("ma data is "+existingUserDto);
+
         if (existingUserDto != null) {
             Poste poste = new Poste();
             poste.setId(posteDto.getId());
@@ -61,6 +74,7 @@ public class PosteController {
 
             // Convertir la liste de CommentaireDto en une liste de Commentaire
             List<CommentaireDto> commentaireDtoList = posteDto.getCommentaireList();
+
 
             if (commentaireDtoList == null) {
                 commentaireDtoList = new ArrayList<>();

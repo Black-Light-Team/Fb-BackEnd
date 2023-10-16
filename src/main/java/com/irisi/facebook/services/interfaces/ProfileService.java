@@ -8,6 +8,7 @@ import java.util.List;
 public interface ProfileService {
     ProfileDto saveProfil(Profile profile);
     ProfileDto getProfil (String id);
+    ProfileDto getProfilByUserId (String userId);
     ProfileDto updateProfil(String id,ProfileDto profileDto);
     void deleteProfil(String id);
     List<ProfileDto> allProfiles();

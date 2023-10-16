@@ -40,6 +40,14 @@ public class PosteImpl implements PosteService {
     }
 
     @Override
+    public List<PosteDto> getPosteByUserId(String userId) {
+        List<Poste> postes = (List<Poste>) posteRepository.findByUserId(userId);
+        return postes.stream()
+                .map(posteMapper::posteToPosteDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public PosteDto updatePoste(String postId ,PosteDto posteDto) {
         Optional<Poste> optionalPoste = posteRepository.findById(postId);
 

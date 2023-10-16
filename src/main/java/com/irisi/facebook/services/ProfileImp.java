@@ -42,6 +42,12 @@ public class ProfileImp  implements ProfileService {
     }
 
     @Override
+    public ProfileDto getProfilByUserId(String userId) {
+        Profile profile = profileRepository.findByUserId(userId);
+        return profileMapper.profileToProfileDto(profile);
+    }
+
+    @Override
     public ProfileDto updateProfil(String id,ProfileDto profileDto) {
         Optional<Profile> optionalProfile = profileRepository.findById(id);
 
