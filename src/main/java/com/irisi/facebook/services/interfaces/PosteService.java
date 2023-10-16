@@ -11,6 +11,7 @@ public interface PosteService {
 
     PosteDto savePoste(Poste poste);
     PosteDto getPoste (String id);
+    List<PosteDto> getPosteByUserId(String userId);
     PosteDto updatePoste(String id,PosteDto posteDto);
     void deletePoste(String id);
     List<PosteDto> allPostes();

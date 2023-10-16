@@ -45,6 +45,14 @@ public class CommentaireImpl implements CommentaireService {
     }
 
     @Override
+    public List<CommentaireDto> getCommentairesByUserId(String userId) {
+        List<Commentaire> commentaires = commentaireRepository.findByUserId(userId);
+        return commentaires.stream()
+                .map(commentaireMapper::commentaireToCommentaireDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public CommentaireDto updateCommentaire(String id,CommentaireDto commentaireDto) {
 
         Optional<Commentaire> optionalComment = commentaireRepository.findById(id);

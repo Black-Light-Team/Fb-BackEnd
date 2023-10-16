@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000") // Replace with your frontend URL
 @RestController
 @RequestMapping("/commentaires")
 public class CommentaireController {
@@ -32,6 +33,13 @@ public class CommentaireController {
     public ResponseEntity<CommentaireDto> getCommentaire(@PathVariable("commentId") String id) {
         CommentaireDto commentaireDto=commentaireService.getCommentaire(id);
         return new ResponseEntity<>(commentaireDto, HttpStatus.OK);
+    }
+
+    // Get the commentaire of userId
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<CommentaireDto>> getCommentairesByUserId(@PathVariable("userId") String userId) {
+        List<CommentaireDto> commentaires = commentaireService.getCommentairesByUserId(userId);
+        return new ResponseEntity<>(commentaires, HttpStatus.OK);
     }
 
     @PostMapping

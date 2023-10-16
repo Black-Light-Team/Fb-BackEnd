@@ -42,6 +42,14 @@ public class PosteController {
         return new ResponseEntity<>(posteDto, HttpStatus.OK);
     }
 
+    // Get the postes of userId
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<PosteDto>> getPostesByUserId(@PathVariable("userId") String userId) {
+        List<PosteDto> postes = posteService.getPosteByUserId(userId);
+        return new ResponseEntity<>(postes, HttpStatus.OK);
+    }
+
+
     @PostMapping
     public ResponseEntity<PosteDto> createPoste( @RequestBody PosteDto posteDto) {
 
