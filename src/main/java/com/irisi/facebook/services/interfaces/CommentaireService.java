@@ -9,6 +9,7 @@ import java.util.List;
 public interface CommentaireService {
     CommentaireDto saveCommentaire(Commentaire commentaire);
     CommentaireDto getCommentaire (String id);
+    List<CommentaireDto> getCommentairesByUserId(String userId);
     CommentaireDto updateCommentaire(String id ,CommentaireDto commentaireDto);
     void deleteCommentaire(String id);
     List<CommentaireDto> allCommentaires();

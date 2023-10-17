@@ -9,8 +9,9 @@ import java.util.List;
 
 public interface PosteService {
 
-    PosteDto savePoste(Poste poste);
+    PosteDto savePoste(PosteDto posteDto);
     PosteDto getPoste (String id);
+    List<PosteDto> getPosteByUserId(String userId);
     PosteDto updatePoste(String id,PosteDto posteDto);
     void deletePoste(String id);
     List<PosteDto> allPostes();

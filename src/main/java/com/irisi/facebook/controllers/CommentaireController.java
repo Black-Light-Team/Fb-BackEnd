@@ -34,6 +34,11 @@ public class CommentaireController {
         return new ResponseEntity<>(commentaireDto, HttpStatus.OK);
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<CommentaireDto>> getCommentairesByUserId(@PathVariable("userId") String userId) {
+        List<CommentaireDto> commentaires = commentaireService.getCommentairesByUserId(userId);
+        return new ResponseEntity<>(commentaires, HttpStatus.OK);
+    }
     @PostMapping
     public ResponseEntity<CommentaireDto> createCommentaire(@RequestBody CommentaireDto commentaireDto) {
 //        String userId = "6527167a6427fb60de5c7e3b";

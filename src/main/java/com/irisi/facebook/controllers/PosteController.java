@@ -77,8 +77,8 @@ public class PosteController {
             poste.setCommentaires(commentaireList);
 
             // Enregistrer le Poste
-            PosteDto createdPosteDto = posteService.savePoste(poste);
-
+//            PosteDto createdPosteDto = posteService.savePoste(poste);
+            PosteDto createdPosteDto = posteService.savePoste(posteDto);
 
             // Récupérer la liste des postes de l'utilisateur
             List<PosteDto> postes = existingUserDto.getPosts();
@@ -97,6 +97,14 @@ public class PosteController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    // Get the postes of userId
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<PosteDto>> getPostesByUserId(@PathVariable("userId") String userId) {
+        List<PosteDto> postes = posteService.getPosteByUserId(userId);
+        return new ResponseEntity<>(postes, HttpStatus.OK);
+    }
+
 
     @GetMapping
     public ResponseEntity<List<PosteDto>> getAllPostes(){

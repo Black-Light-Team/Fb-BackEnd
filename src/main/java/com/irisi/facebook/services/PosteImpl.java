@@ -28,7 +28,8 @@ public class PosteImpl implements PosteService {
     private ImageMapper imageMapper;
 
     @Override
-    public PosteDto savePoste(Poste poste) {
+    public PosteDto savePoste(PosteDto posteDto) {
+        Poste poste = posteMapper.posteDtoToPoste(posteDto);
         Poste savedPoste= posteRepository.save(poste);
         return posteMapper.posteToPosteDto(savedPoste);
     }
@@ -37,6 +38,14 @@ public class PosteImpl implements PosteService {
     public PosteDto getPoste(String id) {
         Optional<Poste> optionalPoste= posteRepository.findById(id);
         return optionalPoste.map(posteMapper::posteToPosteDto).orElse(null);
+    }
+
+    @Override
+    public List<PosteDto> getPosteByUserId(String userId) {
+        List<Poste> postes = (List<Poste>) posteRepository.findByUserId(userId);
+        return postes.stream()
+                .map(posteMapper::posteToPosteDto)
+                .collect(Collectors.toList());
     }
 
     @Override

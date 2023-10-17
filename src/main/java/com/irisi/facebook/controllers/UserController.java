@@ -61,20 +61,17 @@ public class UserController {
 
         System.out.println("email="+userDto.getAdresseEmail()+"  "+userDto.getMotDePasse());
 
-
         if (authenticationSuccessful_UserId !=null) {
             // L'authentification réussit, vous pouvez retourner une réponse appropriée
-
             // Store authenticated userId information in the session
             httpSession.setAttribute("authenticatedUser", authenticationSuccessful_UserId);
 
-            return new ResponseEntity<>("Authentication successful", HttpStatus.OK);
+            return new ResponseEntity<>(authenticationSuccessful_UserId, HttpStatus.OK);
         } else {
             // L'authentification échoue, retournez une réponse avec un statut 401 Unauthorized
             return new ResponseEntity<>("Authentication failed", HttpStatus.NOT_FOUND);
         }
     }
-
 
 }
 

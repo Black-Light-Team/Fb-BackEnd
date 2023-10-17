@@ -32,6 +32,14 @@ public class ProfileController {
         return new ResponseEntity<>(profileDto, HttpStatus.OK);
     }
 
+    // Get the profile by userId
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<ProfileDto> getProfileByUserId(@PathVariable("userId") String userId) {
+        ProfileDto profileDto = profileService.getProfilByUserId(userId);
+        return new ResponseEntity<>(profileDto, HttpStatus.OK);
+    }
+
+
     @PostMapping
     public ResponseEntity<ProfileDto> createProfile(@RequestBody ProfileDto profileDto){
         // Retrieve userId from the session
@@ -43,7 +51,7 @@ public class ProfileController {
             profile.setCitation(profileDto.getCitation());
             profile.setStatus(profileDto.getStatus());
             profile.setUserId(userId);
-            ProfileDto createdProfileDto = profileService.saveProfil(profile);
+            ProfileDto createdProfileDto = profileService.saveProfil(profileDto);
 
             existingUserDto.setProfile(createdProfileDto);
 
